@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "essential-oils-inventory": {
+      "hosting": {
+        "Final_Project": [
+          "essential-oils-inventory"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "essential-oils-inventory"
+  }
+}
