@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { } from '@angular/core';
 
 interface essentialOil {
   product: string;
@@ -21,6 +23,13 @@ const lavender: essentialOil = {
   benefits: "promotes relaxation"
 }
 
+/*type FirestoreRec = {
+  benefits: string;
+  description: string;
+  name: string;
+  uses: string;
+}*/
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,7 +37,46 @@ const lavender: essentialOil = {
 })
 export class AppComponent {
   title = 'inventoryManagement';
-  myData = [peppermint, lavender];
-  columnsToDisplay = ['product', 'description', 'uses', 'benefits']
+  public product: string = "";
+  public description: string = "";
+  public benefits: string = "";
+  public uses: string = "";
+  public name: string = "";
 
+  public result2: essentialOil[] = [];
+
+  /*public result2: essentialOil = {
+    product: this.product,
+    description: this.description,
+    benefits: this.benefits,
+    uses: this.uses
+  };*/
+
+  columnsToDisplay = ['product', 'description', 'uses', 'benefits'];
+
+
+  constructor(private db: AngularFirestore) { //Created with help from: https://bobbyhadz.com/blog/typescript-get-enum-values-as-array
+    this.db.collection<essentialOil>('/Essential_Oils', ref => ref.orderBy('product')).valueChanges().subscribe(result => { //This is reading from the database.
+      if (result) {
+        this.myData = [];
+        result.forEach(element => {
+          this.myData.push(element as essentialOil);
+        })
+        this.result2 = result;
+        console.log("This is the result" + this.result2[0].benefits);//result2 is a FirestoreRec of everything in the database.
+      }
+    });
+  }
+  myData = [lavender, this.result2];
+  saveDb() {
+    let object3 = {
+      product: this.product,
+      description: this.description,
+      benefits: this.benefits,
+      uses: this.uses
+    }
+    this.db.collection('/Essential_Oils').add(object3);
+    this.name = "";
+    this.description = "";
+  }
 }
