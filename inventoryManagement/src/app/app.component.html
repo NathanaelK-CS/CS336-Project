@@ -4,7 +4,7 @@
 
 <table mat-table [dataSource]="myData">
   <ng-container matColumnDef="count">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Count </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number"> Count </th>
     <td mat-cell *matCellDef="let oil"> {{oil.count}} </td>
   </ng-container>
 
