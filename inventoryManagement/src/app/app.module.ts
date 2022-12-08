@@ -32,7 +32,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MatButtonModule,
-    MatIconModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

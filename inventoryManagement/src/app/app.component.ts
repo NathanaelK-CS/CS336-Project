@@ -44,8 +44,8 @@ export class AppComponent {
   public benefits: string = "";
   public uses: string = "";
   public name: string = "";
-
   public result2: essentialOil[] = [];
+  public newOil: essentialOil | undefined;
 
   /*public result2: essentialOil = {
     product: this.product,
@@ -54,7 +54,7 @@ export class AppComponent {
     uses: this.uses
   };*/
 
-  columnsToDisplay = ['product', 'description', 'uses', 'benefits'];
+  columnsToDisplay = ['product', 'description', 'uses', 'benefits', 'icon'];
 
   public myData: Array<essentialOil> = [];
 
@@ -72,16 +72,9 @@ export class AppComponent {
   }
 
   saveDb() {
-    let object3 = {
-      product: this.product,
-      description: this.description,
-      benefits: this.benefits,
-      uses: this.uses
-    }
-    this.db.collection('/Essential_Oils').add(object3);
+    this.db.collection('/Essential_Oils').add(this.newOil);
     this.name = "";
     this.description = "";
-
   }
 
   addNew() {
@@ -94,5 +87,11 @@ export class AppComponent {
 
   deleteRow() {
     console.log("Delete button works");
+  }
+
+  gotResult(result: any) {
+    this.newOil = result;
+
+    this.db.collection('/Essential_Oils').add(this.newOil);
   }
 }

@@ -1,15 +1,15 @@
 <body>
   <div>
-    Please Enter Oil Name: <input type="text">
+    Please Enter Oil Name: <input type="text" (change)="saveName($event)">
   </div>
   <div>
-    Please Enter Oil Description: <input type="text">
+    Please Enter Oil Description: <input type="text" (change)="saveDesc($event)">
   </div>
   <div>
-    Please Enter Oil Uses: <input type="text">
+    Please Enter Oil Uses: <input type="text" (change)="saveUses($event)">
   </div>
   <div>
-    Please Enter Oil Benefits: <input type="text">
+    Please Enter Oil Benefits: <input type="text" (change)="saveBenefits($event)">
   </div>
 
   <button type="button" mat-raised-button (click)="confirm()">Confirm</button>

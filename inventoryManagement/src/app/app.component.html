@@ -29,7 +29,7 @@
   </ng-container>
 
 
-  <!-- This code found here: https://careydevelopment.us/blog/angular-material-how-to-add-clickable-icons-to-rows-in-a-table -->
+  <!-- Inspiration found here: https://careydevelopment.us/blog/angular-material-how-to-add-clickable-icons-to-rows-in-a-table -->
   <ng-container matColumnDef="icon">
     <tr>
       <th mat-header-cell *matHeaderCellDef> Action </th>
@@ -52,4 +52,4 @@
 
 <button type="button" mat-raised-button (click)="addNew()">Add New</button>
 
-<app-form-card></app-form-card>
+<app-form-card (newOil)="gotResult($event)" (save)="saveDb()"></app-form-card>
