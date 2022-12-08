@@ -15,6 +15,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormCardComponent } from './form-card/form-card.component'
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+
 
 @NgModule({
   declarations: [
@@ -29,8 +32,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

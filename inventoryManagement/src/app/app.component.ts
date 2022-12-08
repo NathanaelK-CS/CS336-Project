@@ -39,14 +39,13 @@ const lavender: essentialOil = {
 })
 export class AppComponent {
   title = 'inventoryManagement';
-
   public product: string = "";
   public description: string = "";
   public benefits: string = "";
   public uses: string = "";
   public name: string = "";
-
   public result2: essentialOil[] = [];
+  public newOil: essentialOil | undefined;
 
   /*public result2: essentialOil = {
     product: this.product,
@@ -55,15 +54,17 @@ export class AppComponent {
     uses: this.uses
   };*/
 
-  columnsToDisplay = ['product', 'description', 'uses', 'benefits'];
-  myData: Array<essentialOil> = [];
+
+  columnsToDisplay = ['product', 'description', 'uses', 'benefits', 'icon'];
+
+  public myData: Array<essentialOil> = [];
 
   constructor(private db: AngularFirestore) { //Created with help from: https://bobbyhadz.com/blog/typescript-get-enum-values-as-array
     this.db.collection<essentialOil>('/Essential_Oils', ref => ref.orderBy('product')).valueChanges().subscribe(result => { //This is reading from the database.
       if (result) {
         this.myData = [];
-        result.forEach(element => {
-          this.myData.push(element as essentialOil);
+        result.forEach(item => {
+          this.myData.push(item as essentialOil);
         })
         this.result2 = result;
         console.log("This is the result" + this.result2[0].benefits);//result2 is a FirestoreRec of everything in the database.
@@ -73,19 +74,11 @@ export class AppComponent {
   }
 
   saveDb() {
-    let object3 = {
-      product: this.product,
-      description: this.description,
-      benefits: this.benefits,
-      uses: this.uses
-    }
-    this.db.collection('/Essential_Oils').add(object3);
+
+    this.db.collection('/Essential_Oils').add(this.newOil);
+    this.name = "";
+    this.description = "";
   }
-
-
-
-  //this.columnsToDisplay = ['count', 'product', 'description', 'uses', 'benefits', 'icon'];
-
   addNew() {
     console.log("Button Press is working");
   }
@@ -96,5 +89,12 @@ export class AppComponent {
 
   deleteRow() {
     console.log("Delete button works");
+  }
+
+
+  gotResult(result: any) {
+    this.newOil = result;
+
+    this.db.collection('/Essential_Oils').add(this.newOil);
   }
 }
