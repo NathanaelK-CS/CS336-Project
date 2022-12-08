@@ -7,7 +7,6 @@ interface essentialOil {
   description: string;
   uses: string;
   benefits: string;
-  count: Number;
 }
 
 // For testing
@@ -16,7 +15,6 @@ const peppermint: essentialOil = {
   description: "smells nice",
   uses: "headaches",
   benefits: "smells good",
-  count: 2
 }
 
 // For testing
@@ -25,7 +23,6 @@ const lavender: essentialOil = {
   description: "Comes from lavender plant",
   uses: "sleep",
   benefits: "promotes relaxation",
-  count: 3
 }
 
 /*type FirestoreRec = {
@@ -59,7 +56,7 @@ export class AppComponent {
   };*/
 
   columnsToDisplay = ['product', 'description', 'uses', 'benefits'];
-
+  myData: Array<essentialOil> = [];
 
   constructor(private db: AngularFirestore) { //Created with help from: https://bobbyhadz.com/blog/typescript-get-enum-values-as-array
     this.db.collection<essentialOil>('/Essential_Oils', ref => ref.orderBy('product')).valueChanges().subscribe(result => { //This is reading from the database.
@@ -70,10 +67,11 @@ export class AppComponent {
         })
         this.result2 = result;
         console.log("This is the result" + this.result2[0].benefits);//result2 is a FirestoreRec of everything in the database.
+        console.table(this.myData);
       }
     });
   }
-  myData = [lavender, this.result2];
+
   saveDb() {
     let object3 = {
       product: this.product,
@@ -82,21 +80,21 @@ export class AppComponent {
       uses: this.uses
     }
     this.db.collection('/Essential_Oils').add(object3);
-    this.name = "";
-    this.description = "";
-
-    myData = [peppermint, lavender];
-    columnsToDisplay = ['count', 'product', 'description', 'uses', 'benefits', 'icon']
-
-    addNew() {
-      console.log("Button Press is working");
-    }
-
-    editRow() {
-      console.log("Edit Button works");
-    }
-
-    deleteRow() {
-      console.log("Delete button works");
-    }
   }
+
+
+
+  //this.columnsToDisplay = ['count', 'product', 'description', 'uses', 'benefits', 'icon'];
+
+  addNew() {
+    console.log("Button Press is working");
+  }
+
+  editRow() {
+    console.log("Edit Button works");
+  }
+
+  deleteRow() {
+    console.log("Delete button works");
+  }
+}
