@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+
 interface essentialOil {
   product: string;
   description: string;
@@ -13,14 +14,14 @@ interface essentialOil {
   styleUrls: ['./form-card.component.scss']
 })
 export class FormCardComponent implements OnInit {
-  @Input() productName: string | undefined;
-  @Input() productDesc: string | undefined;
-  @Input() productUses: string | undefined;
-  @Input() productBenefits: string | undefined;
+  public productName: string | undefined;
+  public productDesc: string | undefined;
+  public productUses: string | undefined;
+  public productBenefits: string | undefined;
+  show: boolean = false;
 
   @Output() newOil = new EventEmitter<any>();
-
-
+  @Output() showForm = new EventEmitter<any>();
 
   constructor() { }
 
@@ -28,25 +29,25 @@ export class FormCardComponent implements OnInit {
 
   }
 
-  saveName(result: any) {
-    console.log(result.target.value);
-    this.productName = result.target.value;
-  }
+  // saveName(result: any) {
+  //   console.log(result.target.value);
+  //   this.productName = result.target.value;
+  // }
 
-  saveDesc(result: any) {
-    console.log(result.target.value);
-    this.productDesc = result.target.value;
-  }
+  // saveDesc(result: any) {
+  //   console.log(result.target.value);
+  //   this.productDesc = result.target.value;
+  // }
 
-  saveUses(result: any) {
-    console.log(result.target.value);
-    this.productUses = result.target.value;
-  }
+  // saveUses(result: any) {
+  //   console.log(result.target.value);
+  //   this.productUses = result.target.value;
+  // }
 
-  saveBenefits(result: any) {
-    console.log(result.target.value);
-    this.productBenefits = result.target.value;
-  }
+  // saveBenefits(result: any) {
+  //   console.log(result.target.value);
+  //   this.productBenefits = result.target.value;
+  // }
 
   confirm() {
     console.log("Button Works");
@@ -57,15 +58,20 @@ export class FormCardComponent implements OnInit {
       benefits: this.productBenefits
     }
     this.newOil.emit(confirmedOil);
+    this.productName = '';
+    this.productDesc = '';
+    this.productUses = '';
+    this.productBenefits = '';
+    this.showForm.emit(false);
   }
 
   cancel() {
     console.log("Button Works");
     this.productName = '';
     this.productDesc = '';
-    this.productBenefits = '';
     this.productUses = '';
-
+    this.productBenefits = '';
+    this.showForm.emit(false);
   }
 
 }

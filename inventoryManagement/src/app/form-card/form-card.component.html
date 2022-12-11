@@ -1,15 +1,15 @@
 <body>
   <div>
-    Please Enter Oil Name: <input type="text" (change)="saveName($event)">
+    Please Enter Oil Name: <input type="text" [(ngModel)]="productName">
   </div>
   <div>
-    Please Enter Oil Description: <input type="text" (change)="saveDesc($event)">
+    Please Enter Oil Description: <input type="text" [(ngModel)]="productDesc">
   </div>
   <div>
-    Please Enter Oil Uses: <input type="text" (change)="saveUses($event)">
+    Please Enter Oil Uses: <input type="text" [(ngModel)]="productUses">
   </div>
   <div>
-    Please Enter Oil Benefits: <input type="text" (change)="saveBenefits($event)">
+    Please Enter Oil Benefits: <input type="text" [(ngModel)]="productBenefits">
   </div>
 
   <button type="button" mat-raised-button (click)="confirm()">Confirm</button>
