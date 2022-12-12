@@ -52,4 +52,6 @@
 
 <button type="button" mat-raised-button (click)="addNew()">Add New</button>
 
-<app-form-card (newOil)="gotResult($event)" (save)="saveDb()" (showForm)="gotBool($event)" *ngIf="show"></app-form-card>
+<app-form-card (newOil)="gotResult($event)" (save)="saveDb()" (showForm)="gotBoolean($event)" *ngIf="show"
+  productName="{{this.product}}" productDesc="{{this.description}}" productUses="{{this.uses}}"
+  productBenefits="{{this.benefits}}"></app-form-card>

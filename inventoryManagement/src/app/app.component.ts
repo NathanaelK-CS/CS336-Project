@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { } from '@angular/core';
 import { deleteDoc } from '@firebase/firestore';
@@ -51,6 +51,8 @@ export class AppComponent {
   public newOil: essentialOil | undefined;
   show = false;
 
+  @Output() editInfo = new EventEmitter<any>();
+
   /*public result2: essentialOil = {
     product: this.product,
     description: this.description,
@@ -89,6 +91,7 @@ export class AppComponent {
 
   editRow(row: essentialOil) {
     // in-progress
+    this.show = true;
     console.log("Edit Button works");
     const db = getFirestore();
     const docRef = doc(db, "Essential_Oils", row.product);
@@ -96,6 +99,9 @@ export class AppComponent {
     this.description = row.description;
     this.uses = row.uses;
     this.benefits = row.benefits;
+
+    console.log(this.product + this.description);
+
   }
 
   deleteRow(row: essentialOil) {
@@ -111,7 +117,7 @@ export class AppComponent {
     this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
   }
 
-  gotBool(result: any) {
+  gotBoolean(result: any) {
     this.show = result;
   }
 }
