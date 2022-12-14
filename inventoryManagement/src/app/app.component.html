@@ -6,7 +6,6 @@
 <button (click)="reset()">Reset</button>
 
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()">
-  <table mat-table [dataSource]="myData">
 
   <ng-container matColumnDef="product">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Product </th>
