@@ -1,17 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body {
-    height: 100%;
     font-family: "Helvetica Neue", sans-serif;
     //background-color: rgb(55, 55, 55);
 }
 
-// body {
-//     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
-// }
-
 /* CSS Reset */
-header, body, label, input, app-form-card {
+html, header, body, label, input, app-form-card {
     margin: 0;
     border: 0;
     padding: 0;
@@ -19,9 +14,11 @@ header, body, label, input, app-form-card {
     display: block;
 }
 
+/* Header styles */
 header {
     background-color: rgb(65, 173, 126);
     font-size: 2rem;
+    line-height: 2rem;
     font-weight: 100;
     font-style: italic;
     color: white;
@@ -31,19 +28,25 @@ header {
 
 }
 
-// table.mat-table {
-//     color: white;
-// }
+app-form-card label, app-form-card input {
+    width: 100%;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    background: white;
+    margin-bottom: 0.2rem;
+}
 
 app-form-card {
     color: rgb(90, 90, 90);
-    width: 40%;
-    margin: auto;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
     box-shadow: 0 0 2rem 1rem lightgray;
     border-radius: 1.8rem;
     padding: 1.8rem;
-
-    //background: rgb(55, 55, 55);
+    transition: all 1s;
 }
 
 app-form-card div {
@@ -55,9 +58,41 @@ app-form-card label, app-form-card input {
     padding: 0.4rem;
     font-size: 1.2rem;
     background: white;
+    margin-bottom: 0.2rem;
 }
 
 app-form-card input {
     background-color: rgb(242, 242, 242);
     border-radius: 0.4rem;
+}
+
+.form-card-button-flexbox {
+    display: flex;
+    padding-top: 1rem;
+    flex-direction: row;
+}
+
+.form-card-button-container {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 41.25em) {
+    app-form-card {
+        width: 75%;
+    }
+}
+
+@media (min-width: 56.25em) {
+    app-form-card {
+        width: 50%;
+    }
+}
+
+@media (min-width: 72em) {
+    app-form-card {
+        width: 40%;
+    }
 }

@@ -1,12 +1,11 @@
 <header>
-  Essential Oils
+  Essential Oils Inventory Management
 </header>
 
 <input [(ngModel)]="message" placeholder="Type here to search" (keyup)="search()">
 <button (click)="reset()">Reset</button>
 
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()">
-  <table mat-table [dataSource]="myData">
 
     <ng-container matColumnDef="product">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Product </th>
@@ -54,4 +53,5 @@
 
   <app-form-card (showForm)="gotBoolean($event)" (newOil)="gotResult($event)" (save)="saveDb()" *ngIf="show"
     productName="{{this.product}}" productDesc="{{this.description}}" productUses="{{this.uses}}"
-    productBenefits="{{this.benefits}}"></app-form-card>
+    productBenefits="{{this.benefits}}">
+  </app-form-card>
