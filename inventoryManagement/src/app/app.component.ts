@@ -144,12 +144,12 @@ export class AppComponent {
         this.search_result.push(obj as essentialOil)
       };
     })
-    this.myData = this.search_result;
+    this.dataSource = this.search_result;
   }
 
   //Reset function to restore the page after a search.
   reset() {
-    this.myData = this.storage;
+    this.dataSource = this.storage;
     this.message = "";
   }
 }
