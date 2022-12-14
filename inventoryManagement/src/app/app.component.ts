@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { deleteDoc } from '@firebase/firestore';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { doc, getFirestore } from 'firebase/firestore';
 import * as firebase from 'firebase/firestore';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -83,7 +83,6 @@ export class AppComponent {
         })
 
         this.dataSource = new MatTableDataSource(this.myData);
-        this.dataSource.renderRows();
       }
     });
 
@@ -121,16 +120,34 @@ export class AppComponent {
   }
 
   deleteRow(row: essentialOil) {
-    console.log("Delete button works");
+    console.log(row);
     const db = getFirestore();
     const docRef = doc(db, "Essential_Oils", row.product);
     deleteDoc(docRef);
     // console.log(row);
+    this.product = '';
+    this.description = '';
+    this.uses = '';
+    this.benefits = '';
   }
 
   gotResult(result: any) {
     this.newOil = result;
-    this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
+    if (this.newOil?.product === "") {
+      window.alert("Please Enter a Product Name");
+      return;
+    }
+
+    if (this.product === '') {
+      this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
+    } else if (this.newOil?.product !== this.product) {
+      const db = getFirestore();
+      const docRef = doc(db, "Essential_Oils", this.product);
+      deleteDoc(docRef);
+      this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
+    } else {
+      this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
+    };
   }
 
   gotBoolean(result: any) {
