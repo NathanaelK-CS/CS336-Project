@@ -3,7 +3,6 @@
 </header>
 
 <input [(ngModel)]="message" placeholder="Type here to search" (keyup)="search()">
-<button (click)="reset()">Reset</button>
 
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()">
 

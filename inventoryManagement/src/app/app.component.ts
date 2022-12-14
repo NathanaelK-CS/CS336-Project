@@ -55,6 +55,10 @@ export class AppComponent {
   public message = "";
   public search_result: Array<essentialOil> = [];
   public storage: Array<essentialOil> = [];
+  public value: string = '';
+  public key: string = '';
+  public obj2: string = '';
+  public obj3: string = '';
 
 
   @Output() editInfo = new EventEmitter<any>();
@@ -81,11 +85,9 @@ export class AppComponent {
           this.myData.push(item as essentialOil);
           this.storage.push(item as essentialOil);
         })
-
         this.dataSource = new MatTableDataSource(this.myData);
       }
     });
-
   }
 
   @ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
@@ -157,7 +159,8 @@ export class AppComponent {
   search() { //Inspiration for this function comes from:https://stackoverflow.com/questions/13964155/get-javascript-object-from-array-of-objects-by-value-of-property
     this.search_result = [];
     this.storage.forEach(obj => {
-      if (obj.product.includes(this.message)) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
+      this.obj2 = obj.product.toLocaleLowerCase();
+      if (this.obj2.includes(this.message.toLocaleLowerCase())) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
         this.search_result.push(obj as essentialOil)
       };
       if (obj.description.includes(this.message)) {
@@ -179,11 +182,5 @@ export class AppComponent {
       });
     })
     this.dataSource = this.search_result;
-  }
-
-  //Reset function to restore the page after a search.
-  reset() {
-    this.dataSource = this.storage;
-    this.message = "";
   }
 }
