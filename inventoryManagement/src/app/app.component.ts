@@ -160,6 +160,23 @@ export class AppComponent {
       if (obj.product.includes(this.message)) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
         this.search_result.push(obj as essentialOil)
       };
+      if (obj.description.includes(this.message)) {
+        this.search_result.push(obj as essentialOil);
+      }
+      if (obj.uses.includes(this.message)) {
+        this.search_result.push(obj as essentialOil);
+      }
+      if (obj.benefits.includes(this.message)) {
+        this.search_result.push(obj as essentialOil);
+      }
+      // Help found here: https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
+      const uniqueOils: essentialOil[] = [];
+      this.search_result.forEach((c) => {
+        if (!uniqueOils.includes(c)) {
+          uniqueOils.push(c);
+        }
+        this.search_result = uniqueOils;
+      });
     })
     this.dataSource = this.search_result;
   }
