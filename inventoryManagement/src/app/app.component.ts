@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { } from '@angular/core';
 import { deleteDoc } from '@firebase/firestore';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import * as firebase from 'firebase/firestore';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface essentialOil {
   product: string;
@@ -49,10 +50,14 @@ export class AppComponent {
   public name: string = "";
   public result2: essentialOil[] = [];
   public newOil: essentialOil | undefined;
+  public count: number | undefined;
   show = false;
   public message = "";
   public search_result: Array<essentialOil> = [];
   public storage: Array<essentialOil> = [];
+
+
+  @Output() editInfo = new EventEmitter<any>();
 
   /*public result2: essentialOil = {
     product: this.product,
@@ -64,6 +69,8 @@ export class AppComponent {
   columnsToDisplay = ['product', 'description', 'uses', 'benefits', 'icon'];
 
   public myData: Array<essentialOil> = [];
+  public dataSource: any;
+
 
   constructor(private db: AngularFirestore) { //Created with help from: https://bobbyhadz.com/blog/typescript-get-enum-values-as-array
     this.db.collection<essentialOil>('/Essential_Oils', ref => ref.orderBy('product')).valueChanges().subscribe(result => { //This is reading from the database.
@@ -74,11 +81,20 @@ export class AppComponent {
           this.myData.push(item as essentialOil);
           this.storage.push(item as essentialOil);
         })
-        this.result2 = result;//result2 is a FirestoreRec of everything in the database.
-        console.table(this.myData);
+
+        this.dataSource = new MatTableDataSource(this.myData);
+        this.dataSource.renderRows();
       }
     });
+
   }
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
+
+  sortData() {
+    this.dataSource.sort = this.sort;
+  }
+
 
   saveDb() {
     this.db.collection('/Essential_Oils').add(this.newOil);
@@ -89,13 +105,15 @@ export class AppComponent {
   addNew() {
     console.log("Button Press is working");
     this.show = true;
+    this.product = '';
+    this.description = '';
+    this.uses = '';
+    this.benefits = '';
   }
 
   editRow(row: essentialOil) {
-    // in-progress
+    this.show = true;
     console.log("Edit Button works");
-    const db = getFirestore();
-    const docRef = doc(db, "Essential_Oils", row.product);
     this.product = row.product;
     this.description = row.description;
     this.uses = row.uses;
@@ -115,7 +133,7 @@ export class AppComponent {
     this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
   }
 
-  gotBool(result: any) {
+  gotBoolean(result: any) {
     this.show = result;
   }
 

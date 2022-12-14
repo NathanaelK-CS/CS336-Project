@@ -18,6 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
+import { MatSortModule } from '@angular/material/sort';
+
 
 
 
@@ -35,7 +37,8 @@ import { FormsModule } from '@angular/forms';
     AngularFirestoreModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

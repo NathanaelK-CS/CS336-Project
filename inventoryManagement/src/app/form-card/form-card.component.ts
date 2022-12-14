@@ -14,10 +14,11 @@ interface essentialOil {
   styleUrls: ['./form-card.component.scss']
 })
 export class FormCardComponent implements OnInit {
-  public productName: string | undefined;
-  public productDesc: string | undefined;
-  public productUses: string | undefined;
-  public productBenefits: string | undefined;
+  @Input() productName: string | undefined;
+  @Input() productDesc: string | undefined;
+  @Input() productUses: string | undefined;
+  @Input() productBenefits: string | undefined;
+  @Input() productCount: number | undefined;
   show: boolean = false;
 
   @Output() newOil = new EventEmitter<any>();
@@ -28,26 +29,6 @@ export class FormCardComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  // saveName(result: any) {
-  //   console.log(result.target.value);
-  //   this.productName = result.target.value;
-  // }
-
-  // saveDesc(result: any) {
-  //   console.log(result.target.value);
-  //   this.productDesc = result.target.value;
-  // }
-
-  // saveUses(result: any) {
-  //   console.log(result.target.value);
-  //   this.productUses = result.target.value;
-  // }
-
-  // saveBenefits(result: any) {
-  //   console.log(result.target.value);
-  //   this.productBenefits = result.target.value;
-  // }
 
   confirm() {
     console.log("Button Works");
@@ -73,5 +54,4 @@ export class FormCardComponent implements OnInit {
     this.productBenefits = '';
     this.showForm.emit(false);
   }
-
 }
