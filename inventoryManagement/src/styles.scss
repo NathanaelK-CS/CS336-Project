@@ -1,4 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+    font-family: "Helvetica Neue", sans-serif;
+    //background-color: rgb(55, 55, 55);
+}
+
+// body {
+//     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+// }
+
+/* CSS Reset */
+header, body, label, input, app-form-card {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+}
+
+header {
+    background-color: rgb(65, 173, 126);
+    font-size: 2rem;
+    font-weight: 100;
+    font-style: italic;
+    color: white;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+}
+
+// table.mat-table {
+//     color: white;
+// }
+
+app-form-card {
+    color: rgb(90, 90, 90);
+    width: 40%;
+    margin: auto;
+    box-shadow: 0 0 2rem 1rem lightgray;
+    border-radius: 1.8rem;
+    padding: 1.8rem;
+
+    //background: rgb(55, 55, 55);
+}
+
+app-form-card div {
+    width: 100%;
+}
+
+app-form-card label, app-form-card input {
+    width: 100%;
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    background: white;
+}
+
+app-form-card input {
+    background-color: rgb(242, 242, 242);
+    border-radius: 0.4rem;
+}

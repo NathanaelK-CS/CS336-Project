@@ -1,21 +1,23 @@
-<body>
-  <div>
-    Please Enter Oil Name: <input type="text" [(ngModel)]="productName">
-  </div>
-  <div>
-    Please Enter Oil Description: <input type="text" [(ngModel)]="productDesc">
-  </div>
-  <div>
-    Please Enter Oil Uses: <input type="text" [(ngModel)]="productUses">
-  </div>
-  <div>
-    Please Enter Oil Benefits: <input type="text" [(ngModel)]="productBenefits">
-  </div>
-  <div>
-    How many containers?: <input type="text" [(ngModel)]="productCount">
-  </div>
+<div>
+  <label>Please Enter Oil Name:</label>
+  <input type="text" [(ngModel)]="productName">
+</div>
+<div>
+  <label>Please Enter Oil Description:</label>
+  <input type="text" [(ngModel)]="productDesc">
+</div>
+<div>
+  <label>Please Enter Oil Uses:</label>
+  <input type="text" [(ngModel)]="productUses">
+</div>
+<div>
+  <label>Please Enter Oil Benefits:</label>
+  <input type="text" [(ngModel)]="productBenefits">
+</div>
 
+<div class="form-card-button-container">
   <button type="button" mat-raised-button (click)="confirm()">Confirm</button>
+</div>
+<div class="form-card-button-container">
   <button type="button" mat-raised-button (click)="cancel()">Cancel</button>
-
-</body>
+</div>
