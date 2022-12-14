@@ -15,9 +15,11 @@
   <input type="text" [(ngModel)]="productBenefits">
 </div>
 
-<div class="form-card-button-container">
-  <button type="button" mat-raised-button (click)="confirm()">Confirm</button>
-</div>
-<div class="form-card-button-container">
-  <button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+<div class="form-card-button-flexbox">
+  <div class="form-card-button-container">
+    <button type="button" mat-raised-button (click)="confirm()">Confirm</button>
+  </div>
+  <div class="form-card-button-container">
+    <button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+  </div>
 </div>
