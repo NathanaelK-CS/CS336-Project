@@ -59,6 +59,8 @@ export class AppComponent {
   public key: string = '';
   public obj2: string = '';
   public obj3: string = '';
+  public obj4: string = '';
+  public obj5: string = '';
 
 
   @Output() editInfo = new EventEmitter<any>();
@@ -160,16 +162,19 @@ export class AppComponent {
     this.search_result = [];
     this.storage.forEach(obj => {
       this.obj2 = obj.product.toLocaleLowerCase();
-      if (this.obj2.includes(this.message.toLocaleLowerCase())) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
+      this.obj3 = obj.description.toLocaleLowerCase();
+      this.obj4 = obj.benefits.toLocaleLowerCase();
+      this.obj5 = obj.uses.toLocaleLowerCase();
+      if (this.obj2.includes(this.message) || obj.product.includes(this.message)) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
         this.search_result.push(obj as essentialOil)
       };
-      if (obj.description.includes(this.message)) {
+      if (this.obj3.includes(this.message) || obj.description.includes(this.message)) {
         this.search_result.push(obj as essentialOil);
       }
-      if (obj.uses.includes(this.message)) {
+      if (this.obj4.includes(this.message) || obj.benefits.includes(this.message)) {
         this.search_result.push(obj as essentialOil);
       }
-      if (obj.benefits.includes(this.message)) {
+      if (this.obj5.includes(this.message) || obj.uses.includes(this.message)) {
         this.search_result.push(obj as essentialOil);
       }
       // Help found here: https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
@@ -181,6 +186,6 @@ export class AppComponent {
         this.search_result = uniqueOils;
       });
     })
-    this.dataSource = this.search_result;
+    this.dataSource = new MatTableDataSource(this.search_result);
   }
 }

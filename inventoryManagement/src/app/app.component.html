@@ -48,7 +48,7 @@
   <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
 </table>
 
-<button type="button" mat-raised-button (click)="addNew()">Add New</button>
+<button type="button" mat-raised-button (click)="addNew()" id="add-button">Add New</button>
 
 <app-form-card (showForm)="gotBoolean($event)" (newOil)="gotResult($event)" (save)="saveDb()" *ngIf="show"
   productName="{{this.product}}" productDesc="{{this.description}}" productUses="{{this.uses}}"
