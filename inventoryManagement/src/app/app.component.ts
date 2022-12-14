@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { } from '@angular/core';
 import { deleteDoc } from '@firebase/firestore';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
-
+import * as firebase from 'firebase/firestore';
 
 interface essentialOil {
   product: string;
@@ -50,6 +50,9 @@ export class AppComponent {
   public result2: essentialOil[] = [];
   public newOil: essentialOil | undefined;
   show = false;
+  public message = "";
+  public search_result: Array<essentialOil> = [];
+  public storage: Array<essentialOil> = [];
 
   /*public result2: essentialOil = {
     product: this.product,
@@ -66,12 +69,13 @@ export class AppComponent {
     this.db.collection<essentialOil>('/Essential_Oils', ref => ref.orderBy('product')).valueChanges().subscribe(result => { //This is reading from the database.
       if (result) {
         this.myData = [];
-        console.log(result);
-        result.forEach(async item => {
+        this.storage = [];
+        result.forEach(item => {
           this.myData.push(item as essentialOil);
+          this.storage.push(item as essentialOil);
         })
-        this.result2 = result;
-        console.log(this.result2[0]);//result2 is a FirestoreRec of everything in the database.
+        this.result2 = result;//result2 is a FirestoreRec of everything in the database.
+        console.table(this.myData);
       }
     });
   }
@@ -113,5 +117,21 @@ export class AppComponent {
 
   gotBool(result: any) {
     this.show = result;
+  }
+
+  search() { //Inspiration for this function comes from:https://stackoverflow.com/questions/13964155/get-javascript-object-from-array-of-objects-by-value-of-property
+    this.search_result = [];
+    this.storage.forEach(obj => {
+      if (obj.product.includes(this.message)) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
+        this.search_result.push(obj as essentialOil)
+      };
+    })
+    this.myData = this.search_result;
+  }
+
+  //Reset function to restore the page after a search.
+  reset() {
+    this.myData = this.storage;
+    this.message = "";
   }
 }
