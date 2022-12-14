@@ -18,6 +18,7 @@ export class FormCardComponent implements OnInit {
   @Input() productDesc: string | undefined;
   @Input() productUses: string | undefined;
   @Input() productBenefits: string | undefined;
+  @Input() productCount: number | undefined;
   show: boolean = false;
 
   @Output() newOil = new EventEmitter<any>();
