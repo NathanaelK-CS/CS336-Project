@@ -63,8 +63,6 @@ export class AppComponent {
   public obj5: string = '';
 
 
-  @Output() editInfo = new EventEmitter<any>();
-
   /*public result2: essentialOil = {
     product: this.product,
     description: this.description,
@@ -77,7 +75,7 @@ export class AppComponent {
   public myData: Array<essentialOil> = [];
   public dataSource: any;
 
-
+  // Reads in data and stores it in dataSource
   constructor(private db: AngularFirestore) { //Created with help from: https://bobbyhadz.com/blog/typescript-get-enum-values-as-array
     this.db.collection<essentialOil>('/Essential_Oils', ref => ref.orderBy('product')).valueChanges().subscribe(result => { //This is reading from the database.
       if (result) {
@@ -92,19 +90,31 @@ export class AppComponent {
     });
   }
 
+
   @ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
 
+  // Sort function for the table
   sortData() {
+    // We had a bug where the sorting was also sorting by capitalized words.
+    // I found a fix here: https://stackoverflow.com/questions/54198687/my-mat-table-is-sorting-by-capitalized-words-how-can-i-fix-this-in-angular
+    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+      if (typeof data[sortHeaderId] === 'string') {
+        return data[sortHeaderId].toLocaleLowerCase();
+      }
+
+      return data[sortHeaderId];
+    };
     this.dataSource.sort = this.sort;
   }
 
-
+  // Saves New oil to the database
   saveDb() {
     this.db.collection('/Essential_Oils').add(this.newOil);
     this.name = "";
     this.description = "";
   }
 
+  // Function when add new button is pressed
   addNew() {
     console.log("Button Press is working");
     this.show = true;
@@ -114,6 +124,7 @@ export class AppComponent {
     this.benefits = '';
   }
 
+  // Function when edit button is pressed
   editRow(row: essentialOil) {
     this.show = true;
     console.log("Edit Button works");
@@ -123,6 +134,7 @@ export class AppComponent {
     this.benefits = row.benefits;
   }
 
+  // Function called when delete button is pressed
   deleteRow(row: essentialOil) {
     console.log(row);
     const db = getFirestore();
@@ -135,13 +147,13 @@ export class AppComponent {
     this.benefits = '';
   }
 
+  // Function to set oil in database
   gotResult(result: any) {
     this.newOil = result;
     if (this.newOil?.product === "") {
       window.alert("Please Enter a Product Name");
       return;
     }
-
     if (this.product === '') {
       this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
     } else if (this.newOil?.product !== this.product) {
@@ -158,13 +170,16 @@ export class AppComponent {
     this.show = result;
   }
 
+  // Function called when user performs search operation
   search() { //Inspiration for this function comes from:https://stackoverflow.com/questions/13964155/get-javascript-object-from-array-of-objects-by-value-of-property
     this.search_result = [];
     this.storage.forEach(obj => {
+      // Convert everything to lowercase
       this.obj2 = obj.product.toLocaleLowerCase();
       this.obj3 = obj.description.toLocaleLowerCase();
       this.obj4 = obj.benefits.toLocaleLowerCase();
       this.obj5 = obj.uses.toLocaleLowerCase();
+      // searching the array for search term
       if (this.obj2.includes(this.message) || obj.product.includes(this.message)) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
         this.search_result.push(obj as essentialOil)
       };
@@ -178,6 +193,7 @@ export class AppComponent {
         this.search_result.push(obj as essentialOil);
       }
       // Help found here: https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
+      // Clears duplicates from array and stores new array in the dataSource array to be displayed
       const uniqueOils: essentialOil[] = [];
       this.search_result.forEach((c) => {
         if (!uniqueOils.includes(c)) {

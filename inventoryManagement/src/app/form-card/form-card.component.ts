@@ -30,6 +30,7 @@ export class FormCardComponent implements OnInit {
 
   }
 
+  // Function called when confirm button is pressed
   confirm() {
     console.log("Button Works");
     const confirmedOil = {
@@ -46,6 +47,7 @@ export class FormCardComponent implements OnInit {
     this.showForm.emit(false);
   }
 
+  // Function Called when cancel button is pressed
   cancel() {
     console.log("Button Works");
     this.productName = '';
