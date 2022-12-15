@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { deleteDoc } from '@firebase/firestore';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import { doc, getFirestore } from 'firebase/firestore';
 import * as firebase from 'firebase/firestore';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -55,6 +55,12 @@ export class AppComponent {
   public message = "";
   public search_result: Array<essentialOil> = [];
   public storage: Array<essentialOil> = [];
+  public value: string = '';
+  public key: string = '';
+  public obj2: string = '';
+  public obj3: string = '';
+  public obj4: string = '';
+  public obj5: string = '';
 
 
   @Output() editInfo = new EventEmitter<any>();
@@ -81,12 +87,9 @@ export class AppComponent {
           this.myData.push(item as essentialOil);
           this.storage.push(item as essentialOil);
         })
-
         this.dataSource = new MatTableDataSource(this.myData);
-        this.dataSource.renderRows();
       }
     });
-
   }
 
   @ViewChild(MatSort, { static: true }) sort: MatSort | undefined;
@@ -121,16 +124,34 @@ export class AppComponent {
   }
 
   deleteRow(row: essentialOil) {
-    console.log("Delete button works");
+    console.log(row);
     const db = getFirestore();
     const docRef = doc(db, "Essential_Oils", row.product);
     deleteDoc(docRef);
     // console.log(row);
+    this.product = '';
+    this.description = '';
+    this.uses = '';
+    this.benefits = '';
   }
 
   gotResult(result: any) {
     this.newOil = result;
-    this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
+    if (this.newOil?.product === "") {
+      window.alert("Please Enter a Product Name");
+      return;
+    }
+
+    if (this.product === '') {
+      this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
+    } else if (this.newOil?.product !== this.product) {
+      const db = getFirestore();
+      const docRef = doc(db, "Essential_Oils", this.product);
+      deleteDoc(docRef);
+      this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
+    } else {
+      this.db.collection('/Essential_Oils').doc(this.newOil?.product).set(this.newOil);
+    };
   }
 
   gotBoolean(result: any) {
@@ -140,16 +161,31 @@ export class AppComponent {
   search() { //Inspiration for this function comes from:https://stackoverflow.com/questions/13964155/get-javascript-object-from-array-of-objects-by-value-of-property
     this.search_result = [];
     this.storage.forEach(obj => {
-      if (obj.product.includes(this.message)) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
+      this.obj2 = obj.product.toLocaleLowerCase();
+      this.obj3 = obj.description.toLocaleLowerCase();
+      this.obj4 = obj.benefits.toLocaleLowerCase();
+      this.obj5 = obj.uses.toLocaleLowerCase();
+      if (this.obj2.includes(this.message) || obj.product.includes(this.message)) { //Help for this line is from:https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript
         this.search_result.push(obj as essentialOil)
       };
+      if (this.obj3.includes(this.message) || obj.description.includes(this.message)) {
+        this.search_result.push(obj as essentialOil);
+      }
+      if (this.obj4.includes(this.message) || obj.benefits.includes(this.message)) {
+        this.search_result.push(obj as essentialOil);
+      }
+      if (this.obj5.includes(this.message) || obj.uses.includes(this.message)) {
+        this.search_result.push(obj as essentialOil);
+      }
+      // Help found here: https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
+      const uniqueOils: essentialOil[] = [];
+      this.search_result.forEach((c) => {
+        if (!uniqueOils.includes(c)) {
+          uniqueOils.push(c);
+        }
+        this.search_result = uniqueOils;
+      });
     })
-    this.dataSource = this.search_result;
-  }
-
-  //Reset function to restore the page after a search.
-  reset() {
-    this.dataSource = this.storage;
-    this.message = "";
+    this.dataSource = new MatTableDataSource(this.search_result);
   }
 }
