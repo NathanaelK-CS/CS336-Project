@@ -8,6 +8,7 @@ html, body {
 /* CSS Reset */
 html, header, body, label, input, app-form-card {
     margin: 0;
+    font-size: 1rem;
     border: 0;
     padding: 0;
     box-sizing: border-box;
@@ -16,7 +17,7 @@ html, header, body, label, input, app-form-card {
 
 /* Header styles */
 header {
-    background-color: rgb(65, 173, 126);
+    background-color: rgb(51, 177, 123);
     font-size: 2rem;
     line-height: 2rem;
     font-weight: 100;
@@ -25,9 +26,47 @@ header {
     text-align: center;
     padding-top: 2rem;
     padding-bottom: 2rem;
-
 }
 
+/* Contain the input for styling purposes */
+.search-field-flexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 2%;
+}
+
+/* Style the main search field */
+.search-field {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+    background: rgb(242, 242, 242);
+    border-radius: 1.3rem;
+    transition: all 1s;
+}
+
+/* Make the search bar responsive */
+@media (min-width: 41.25em) {
+    .search-field {
+        width: 40%;
+    }
+}
+
+/* Make table icons match header theme */
+.table-button-icon {
+    color: rgb(51, 177, 123);
+}
+
+/* Contain the mat-button under the table for styling purposes */
+.plus-button-flexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 2%;
+}
+
+/* Make the card labels and inputs have consistent layout */
 app-form-card label, app-form-card input {
     width: 100%;
     padding: 0.4rem;
@@ -36,6 +75,7 @@ app-form-card label, app-form-card input {
     margin-bottom: 0.2rem;
 }
 
+/* Style the card that contains the inputs and labels */
 app-form-card {
     color: rgb(90, 90, 90);
     width: 90%;
@@ -43,35 +83,52 @@ app-form-card {
     margin-right: auto;
     margin-top: 5%;
     margin-bottom: 5%;
-    box-shadow: 0 0 2rem 1rem lightgray;
+    box-shadow: 0 0 2rem 0.5rem lightgray;
     border-radius: 1.8rem;
     padding: 1.8rem;
     transition: all 1s;
 }
 
+/* Make styling containers span the width of the content area of their parent */
 app-form-card div {
     width: 100%;
 }
 
-app-form-card label, app-form-card input {
-    width: 100%;
-    padding: 0.4rem;
-    font-size: 1.2rem;
-    background: white;
-    margin-bottom: 0.2rem;
+/* Invoke media quieries to make the form card responsive */
+@media (min-width: 41.25em) {
+    app-form-card {
+        width: 75%;
+    }
 }
 
+/* Invoke media quieries to make the form card responsive */
+@media (min-width: 56.25em) {
+    app-form-card {
+        width: 50%;
+    }
+}
+
+/* Invoke media quieries to make the form card responsive */
+@media (min-width: 72em) {
+    app-form-card {
+        width: 40%;
+    }
+}
+
+/* Make the inputs pretty */
 app-form-card input {
     background-color: rgb(242, 242, 242);
     border-radius: 0.4rem;
 }
 
+/* Contain sub-divs in a div and make it a flexbox */
 .form-card-button-flexbox {
     display: flex;
     padding-top: 1rem;
     flex-direction: row;
 }
 
+/* Contain the buttons in a div and make them nested flexboxes for styling purposes */
 .form-card-button-container {
     width: 50%;
     display: flex;
@@ -79,20 +136,3 @@ app-form-card input {
     justify-content: center;
 }
 
-@media (min-width: 41.25em) {
-    app-form-card {
-        width: 75%;
-    }
-}
-
-@media (min-width: 56.25em) {
-    app-form-card {
-        width: 50%;
-    }
-}
-
-@media (min-width: 72em) {
-    app-form-card {
-        width: 40%;
-    }
-}

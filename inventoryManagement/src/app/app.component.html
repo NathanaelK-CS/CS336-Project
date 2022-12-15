@@ -2,8 +2,10 @@
   Essential Oils Inventory Management
 </header>
 
-<input [(ngModel)]="message" placeholder="Type here to search" (keyup)="search()">
-<button (click)="reset()">Reset</button>
+<div class="search-field-flexbox">
+  <input class="search-field" [(ngModel)]="message" placeholder="Type to search" (keyup)="search()">
+</div>
+
 
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData()">
 
@@ -36,10 +38,10 @@
     <tr>
       <td mat-cell *matCellDef="let row" style="width:20%">
         <button mat-icon-button color="primary" title="Edit Row">
-          <mat-icon (click)="editRow(this.row)">edit</mat-icon>
+          <mat-icon class="table-button-icon" (click)="editRow(this.row)">edit</mat-icon>
         </button>
         <button mat-icon-button color="primary" title="Delete Row">
-          <mat-icon (click)="deleteRow(this.row)">delete</mat-icon>
+          <mat-icon class="table-button-icon" (click)="deleteRow(this.row)">delete</mat-icon>
         </button>
       </td>
     <tr>
@@ -49,7 +51,10 @@
   <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
 </table>
 
-<button type="button" mat-raised-button (click)="addNew()">Add New</button>
+<div class="plus-button-flexbox">
+  <button type="button" mat-raised-button (click)="addNew()">&plus;</button>
+</div>
+
 
 <app-form-card (showForm)="gotBoolean($event)" (newOil)="gotResult($event)" (save)="saveDb()" *ngIf="show"
   productName="{{this.product}}" productDesc="{{this.description}}" productUses="{{this.uses}}"
